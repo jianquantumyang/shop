@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="kz">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/icon type">
+  
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block styles %}
+    {% endblock %}
+    <meta name="Description" content="Спорт Арк — большой ассортимент товаров для спорта и активного отдыха ☎ 87054171932.">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                {% load static %}
+                <img src="{% static 'img/logo.png' %}" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                Спорт Арк
+              </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link {% block index_active %}{% endblock %}" aria-current="page" href="/">Дом</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block category_active %}{% endblock %}" href="/category" >Категории</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="/accounts/logout"> Выйти</a></li>
+            
+            </ul>
+            <div class="d-flex">
+              <input class="form-control search me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+              <button class="btn btn-outline-success search_go" > Поиск</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        {% block main %}
+        {% endblock %}
+      </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+      {% load static %}
+      <script src="{% static 'js/search.js' %}"></script>
+</body>
+</html>

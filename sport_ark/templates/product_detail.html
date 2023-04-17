@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}{{product_obj.name}}{% endblock %}
+
+{% block styles %}
+    {% load static %}
+    <link href="{% static 'css/product_.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block main %}
+<br>
+{% if form %}
+<div class="alert alert-success" role="alert">
+    Ваш заказ принять! 
+    В течение 7 дней ожидайте товар
+  </div>
+{% endif %}
+<div class="shadow row d-flex justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="images p-3">
+                        <div class="text-center p-4"> <img id="main-image" src="{{product_obj.img1.url}}"
+                                width="250" /> </div>
+                        <div class="thumbnail text-center"> 
+                            
+                            <img onclick="change_image(this)"
+                                src="{{product_obj.img1.url}}" width="70" height="70"> 
+                            
+                            {% if product_obj.img2 %}
+                            <img onclick="change_image(this)"
+                                src="{{product_obj.img2.url}}" width="70" height="70"> 
+                            {% endif %}
+                            {% if product_obj.img3 %}
+                            <img onclick="change_image(this)"
+                                src="{{product_obj.img3.url}}" width="70" height="70"> 
+                            {% endif %}
+                            {% if product_obj.img4 %}
+                            <img onclick="change_image(this)"
+                                src="{{product_obj.img4.url}}" width="70" height="70"> 
+                            {% endif %}
+                            {% if product_obj.img5 %}
+                            <img onclick="change_image(this)"
+                                src="{{product_obj.img5.url}}" width="70" height="70"> 
+                                
+                            {% endif %}
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product p-4">
+                        
+                        <div class="mt-4 mb-3"><a href="/category_detail/{{product_obj.category.pk}}"> <span class="text-uppercase text-muted brand">{{product_obj.category.name}}</span></a>
+                            <h5 class="text-uppercase">{{product_obj.name}}</h5>
+                            <div class="price d-flex flex-row align-items-center"> <span class="act-price">{{product_obj.price}}₸</span>
+                            </div>
+                        </div>
+                        <p class="about">{{product_obj.about}}</p>
+                        <p class="about">Пол: {{product_obj.gender}}</p>
+                        <p class="about">{% if product_obj.are_available %}<b>Есть в наличии</b>{% else %} Нет в наличии{% endif %}</p>
+                        
+                        <div class="cart mt-4 align-items-center">
+                            <form method="post" action="/zakazat/{{product_obj.pk}}/">
+                                {% csrf_token %}
+                                <input name="count" style="width: 100px;" max="100" min="1" value="1" type="number" class="form-control">    
+                                <br><button
+                                type="submit"
+                                    class="btn btn-danger text-uppercase mr-2 px-4">Купить</button> <i
+                                    class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i>
+                            
+                            </form>
+                        </div>
+                        <h5>Рейтин данного продукта: {{ratins}}</h5>
+                        {% if rating %}
+                        <div class="product-rating">
+                            <h3>Оцените продукт:</h3>
+                                <form action="/rating/{{product_obj.pk}}/" method="post">
+                                    {% csrf_token %}
+                                    
+                                    <div class="rate">
+                                        <input type="radio" id="star5" name="rate" value="5" />
+                                        <label for="star5" title="text">5 stars</label>
+                                        <input type="radio" id="star4" name="rate" value="4" />
+                                        <label for="star4" title="text">4 stars</label>
+                                        <input type="radio" id="star3" name="rate" value="3" />
+                                        <label for="star3" title="text">3 stars</label>
+                                        <input type="radio" id="star2" name="rate" value="2" />
+                                        <label for="star2" title="text">2 stars</label>
+                                        <input type="radio" id="star1" name="rate" value="1" />
+                                        <label for="star1" title="text">1 star</label>
+                                      </div>
+                                      <br>
+                                      <textarea name="text" class="form-control" placeholder="Комментарий к продукту"></textarea>
+                                      <br>
+
+                                      <button class="btn btn-success" type="submit">Отправить</button>
+                                </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}

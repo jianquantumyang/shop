@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Регистрация</title>
+    
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <h2>Регистрация</h2>
+        <form method="POST">
+           {% csrf_token %}
+           {% for field in form %}
+             <p>
+               {{ field.label_tag }}<br>
+               {{ field }}
+               {% if field.help_text %}
+                 <small style="color: grey">{{ field.help_text }}</small>
+               {% endif %}
+               {% for error in field.errors %}
+                 <p style="color: red">{{ error }}</p>
+               {% endfor %}
+             </p>
+           {% endfor %}
+           <button type="submit">Sign up</button>
+         </form>
+       
+
+    </div>
+</body>
+</html>

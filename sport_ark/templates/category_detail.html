@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block category_active %}active{% endblock %}
+
+{% block title %}{{cat.name}}{% endblock %}
+
+{% block main %}
+<h2>{{cat.name}}</h2>
+<br/>
+    {% for cat in pod_categories %}
+    <div class="card" style="width: 18rem;">
+        <a href="/pod_category/{{cat.pk}}"><img src="{{ cat.category_img.url }}" class="card-img-top" alt="...">
+        </a> <div class="card-body">
+          <h5 class="card-title"> <a href="/pod_category/{{cat.pk}}">{{cat.name}}</a></h5>
+        </div>
+      </div>
+    {% endfor %}
+    <br>
+    <hr/>
+    <br/>
+    <h2>Продукты из этой категории</h2>
+    {% for product in products %}
+    <div class="card shadow card_hover" style="width: 18rem;">
+        <img data-fancybox src="{{ product.img1.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.about | truncatewords:20  }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Пол: {{product.gender}}</li>
+          <li class="list-group-item">{% if product.are_available %}<b>Есть в наличии</b>{% else %} Нет в наличии{% endif %}</li>
+          <li class="list-group-item">Цена: <b style="color: green;">{{product.price}}₸</b></li>
+          <li class="list-group-item"><a href="/pod_category/{{product.pod_category.pk}}">Категория: {{ product.pod_category }}</a></li>
+          
+        </ul>
+        <div class="card-body">
+          <a href="/product/{{product.pk}}" class="btn btn-primary card-link">Перейти по продукту</a>
+        </div>
+      </div>
+    {% endfor %}
+{% endblock %}

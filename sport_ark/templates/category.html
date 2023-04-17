@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block category_active %}active{% endblock %}
+
+{% block title %}Категории{% endblock %}
+
+{% block main %}
+<h2>Категории</h2>
+<br/>
+    {% for cat in categories %}
+    <div class="card" style="width: 18rem;">
+        <a href="/category_detail/{{cat.pk}}"><img src="{{ cat.category_img.url }}" class="card-img-top" alt="...">
+        </a> <div class="card-body">
+          <h5 class="card-title"> <a href="/category_detail/{{cat.pk}}">{{cat.name}}</a></h5>
+        </div>
+      </div>
+    {% endfor %}
+
+{% endblock %}
